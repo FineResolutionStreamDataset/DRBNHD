@@ -1,0 +1,24 @@
+Baseline:
+1. ASTGCN (Attention Based Spatial-Temporal Graph Convolutional Networks for Traffic Flow Forecasting, AAAI 2019)
+2. GWNET (Graph WaveNet for Deep Spatial-Temporal Graph Modeling, IJCAI 2019)
+3. STGODE (Spatial-Temporal Graph ODE Networks for Traffic Flow Forecasting, KDD 2021)
+4. STAEformer (STAEformer: Spatio-Temporal Adaptive Embedding Makes Vanilla Transformer SOTA for Traffic Forecasting, CIKM2023)
+5. STGformer (STGformer: Efficient Spatiotemporal Graph Transformer for Traffic Forecasting, arxiv 2024)
+6. STID (Spatial-Temporal Identity: A Simple yet Effective Baseline for Multivariate Time Series Forecasting, CIKM 2022)
+7. RGCN_v1 (Physics-Guided Recurrent Graph Model for Predicting Flow and Temperature in River Network, SDM 2021)
+8. DCRNN (Diffusion Convolutional Recurrent Neural Network: Data-Driven Traffic Forecasting, ICLR 2018)
+9. STGCN (Spatio-Temporal Graph Convolutional Networks: A Deep Learning Framework for Traffic Forecasting, IJCAI 2018)
+
+
+
+
+Baseline:
+1. STGCN (Spatio-Temporal Graph Convolutional Networks: A Deep Learning Framework for Traffic Forecasting, IJCAI 2018)
+2. DCRNN (Diffusion Convolutional Recurrent Neural Network: Data-Driven Traffic Forecasting, ICLR 2018)
+3. ASTGCN (Attention Based Spatial-Temporal Graph Convolutional Networks for Traffic Flow Forecasting, AAAI 2019)
+4. GWNET (Graph WaveNet for Deep Spatial-Temporal Graph Modeling, IJCAI 2019)
+5. STGODE (Spatial-Temporal Graph ODE Networks for Traffic Flow Forecasting, KDD 2021)
+6. RGCN_v1 (Physics-Guided Recurrent Graph Model for Predicting Flow and Temperature in River Network, SDM 2021)
+7. STID (Spatial-Temporal Identity: A Simple yet Effective Baseline for Multivariate Time Series Forecasting, CIKM 2022)
+8. STAEformer (STAEformer: Spatio-Temporal Adaptive Embedding Makes Vanilla Transformer SOTA for Traffic Forecasting, CIKM2023)
+9. STGformer (STGformer: Efficient Spatiotemporal Graph Transformer for Traffic Forecasting, arxiv 2024)

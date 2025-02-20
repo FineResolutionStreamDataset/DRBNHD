@@ -10,7 +10,9 @@ https://drive.google.com/file/d/18EBbCC0x7jJfkxuLGIHTOHNjr7WoSfrj/view?usp=drive
 
 
 To train the SpatioTemporal model by low-resolution DRB dataset, run coarse.py
+
 To train the SpatioTemporal model by high-resolution DRB dataset, run base.py
+
 To use the basic downscaling method, run remap.py, direct_upscaling.py, progress_upscaling.py
 
 All of the spatiotemporal models are in the multiscale.MODEL with reference. All of the models are kept the same with

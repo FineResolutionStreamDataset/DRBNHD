@@ -1,0 +1,118 @@
+
+
+# Input files
+
+code_dir: ".."
+
+obs_file: "../../DRB_NHM_20230928/obs_temp_flow"
+sntemp_file: "../../DRB_NHM_20230928/sntemp_input_output"
+dist_matrix_file: "../../DRB_NHM_20230928/dist_matrix.npz"
+
+
+obs_file_NHD: "../../DRB_NHD_on_NHM_20240119/obs_temp_flow"
+sntemp_file_NHD: "../../DRB_NHD_on_NHM_20240119/sntemp_input_output"
+dist_matrix_file_NHD: "../../DRB_NHD_on_NHM_20240119/dist_matrix.npz"
+
+crosswalk: "../../DRB_NHD_on_NHM_20240119/NHD_on_NHM_crosswalk.csv"
+
+
+
+#obs_file: "../Neversink_NHM_20230907/obs_temp_flow"
+#sntemp_file: "../Neversink_NHM_20230907/sntemp_input_output"
+#dist_matrix_file: "../Neversink_NHM_20230907/dist_matrix.npz"
+#obs_file_NHD: "../Neversink_NHD_on_NHM_20230908/obs_temp_flow"
+#sntemp_file_NHD: "../Neversink_NHD_on_NHM_20230908/sntemp_input_output"
+#dist_matrix_file_NHD: "../Neversink_NHD_on_NHM_20230908/dist_matrix.npz"
+
+
+
+#### for flow modeling, seg_width should be removed from x_vars
+x_vars: ['seg_slope', 'seg_elev', 'seg_width_mean', 'seg_tave_air', 'seginc_swrad', 'seg_rain', 'seginc_potet']
+#x_vars_NHD: ['daily_precip_m_gridmet', 'daily_mean_airtempC_gridmet', 'min_elev_m_nhdv2','daily_srad_gridmet','slope_nhdv2' ,'est_width_m','seginc_potet_prms']
+x_vars_NHD: ['slope_nhdv2', 'min_elev_m_nhdv2', 'est_width_m','daily_mean_airtempC_gridmet','daily_srad_gridmet' ,'daily_precip_m_gridmet','seginc_potet_prms']
+
+out_dir: "output_downscale_NHM"
+
+seed: False #random seed for training False==No seed, otherwise specify the seed
+y_vars_pretrain: ['seg_tave_water']
+y_vars_pretrain_NHD: ['seg_tave_water_prms']
+y_vars_finetune: ['mean_temp_c']
+
+
+
+
+
+
+
+
+lambdas: [1]
+trn_offset: 1.0
+#used for keep_last_portion in train dataset
+tst_val_offset: 1.0
+#used for keep_last_portion in test dataset
+
+
+
+
+train_start_date:
+  - '1984-10-01'
+  - '2015-10-01'
+
+
+train_end_date:
+  - '2005-09-30'
+  - '2020-09-30'
+
+
+
+val_start_date:
+  - '2005-10-01'
+
+val_end_date:
+  - '2010-09-30'
+
+
+test_start_date:
+  - '1979-10-01'
+  - '2010-10-01'
+  - '2020-10-01'
+
+test_end_date:
+  - '1984-09-30'
+  - '2015-09-30'
+  - '2021-09-30'
+
+
+train_start_date_long:
+  - '1979-10-01'
+train_end_date_long:
+  - '2021-09-30'
+val_start_date_long:
+  - '2005-10-01'
+val_end_date_long:
+  - '2010-09-30'
+test_start_date_long:
+  - '1979-10-01'
+  - '2010-10-01'
+  - '2020-10-01'
+test_end_date_long:
+  - '1984-09-30'
+  - '2015-09-30'
+  - '2021-09-30'
+
+
+
+
+
+#Define early stopping criteria, setting this to False will turn off early stopping rounds
+early_stopping: 60
+pt_epochs: 40
+#training epochs for pre_train
+ft_epochs: 40
+#training epochs for fine-tune
+hidden_size: 20
+
+dropout: 0.2
+pretrain_learning_rate: 0.005
+finetune_learning_rate: 0.005 #0.003
+

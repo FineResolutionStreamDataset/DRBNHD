@@ -52,7 +52,14 @@ else:
 MODEL_NAME = args.model_name  
 
 
-
+'''
+basin = 'Rancocas'
+maskpercentage = 0
+random_seed = 42
+model_seed = 1
+maskpercentage_formatted = int(maskpercentage * 100)
+MODEL_NAME = "RGCN_v1" 
+'''
 
 
 
@@ -148,7 +155,7 @@ num_segs = len(np.unique(data['ids_trn']))
 adj_mx = data['dist_matrix']
 in_dim = len(data['x_vars'])
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
-model = Model(in_dim, config['hidden_size'], adj_matrix=adj_mx, device=device, seed=config['seed'])
+model = Model(input_dim=in_dim, hidden_dim=config['hidden_size'], adj_matrix=adj_mx, device=device, seed=model_seed)
 opt = optim.Adam(model.parameters(), lr=config['pretrain_learning_rate'])
 pre_train = train_torch(model,
             loss_function=rmse_masked,
@@ -201,12 +208,13 @@ data = np.load(f"../{outdir}/prepped_NHD.npz")
 in_dim = len(data['x_vars'])
 adj_mx = data['dist_matrix']
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
-model = Model(in_dim, config['hidden_size'], adj_matrix=adj_mx, device=device, seed=model_seed)
+model = Model(input_dim=in_dim, hidden_dim=config['hidden_size'], adj_matrix=adj_mx, device=device, seed=model_seed)
+
 model.load_state_dict(torch.load(f"../{outdir}/finetuned_weights.pth"))
 partitions = ['trn','val','tst']
 
 for partition in partitions:
-    outfile = f"your_path_to_river-dl/results/results_direct_upscaling/{MODEL_NAME}/preds/{basin}_{maskpercentage_formatted}_{partition}_{model_seed}_preds.feather"
+    outfile = f"D:/river/river-dl/results/results_direct_upscaling/{MODEL_NAME}/preds/{basin}_{maskpercentage_formatted}_{partition}_{model_seed}_preds.feather"
     ensure_dir(outfile)
     predict_from_io_data(model=model,
                          io_data=f"../{outdir}/prepped_NHD.npz",
@@ -232,15 +240,15 @@ metric_types = ['overall', 'month', 'reach', 'month_reach']
 
 for metric_type in metric_types:
     grp_arg = get_grp_arg(metric_type)
-    outfile = f"your_path_to_river-dl/results/results_direct_upscaling/{MODEL_NAME}/metrics/{metric_type}/{basin}_{maskpercentage_formatted}_{model_seed}_metrics.csv"
+    outfile = f"D:/river/river-dl/results/results_direct_upscaling/{MODEL_NAME}/metrics/{metric_type}/{basin}_{maskpercentage_formatted}_{model_seed}_metrics.csv"
     ensure_dir(outfile)
     combined_metrics(obs_file=config['obs_file_NHD'],
                      #pred_trn=f"../{outdir}/trn_preds.feather",
                      #pred_val=f"../{outdir}/val_preds.feather",
                      #pred_tst=f"../{outdir}/tst_preds.feather",
-                     pred_trn=f"your_path_to_river-dl/results/results_direct_upscaling/{MODEL_NAME}/preds/{basin}_{maskpercentage_formatted}_trn_{model_seed}_preds.feather",
-                     pred_val=f"your_path_to_river-dl/results/results_direct_upscaling/{MODEL_NAME}/preds/{basin}_{maskpercentage_formatted}_val_{model_seed}_preds.feather",
-                     pred_tst=f"your_path_to_river-dl/results/results_direct_upscaling/{MODEL_NAME}/preds/{basin}_{maskpercentage_formatted}_tst_{model_seed}_preds.feather",
+                     pred_trn=f"D:/river/river-dl/results/results_direct_upscaling/{MODEL_NAME}/preds/{basin}_{maskpercentage_formatted}_trn_{model_seed}_preds.feather",
+                     pred_val=f"D:/river/river-dl/results/results_direct_upscaling/{MODEL_NAME}/preds/{basin}_{maskpercentage_formatted}_val_{model_seed}_preds.feather",
+                     pred_tst=f"D:/river/river-dl/results/results_direct_upscaling/{MODEL_NAME}/preds/{basin}_{maskpercentage_formatted}_tst_{model_seed}_preds.feather",
                      group_spatially=False if not grp_arg else True if "COMID" in grp_arg else False,
                      group_temporally=False if not grp_arg else 'M' if "month" in grp_arg else False,
                      outfile=outfile,
